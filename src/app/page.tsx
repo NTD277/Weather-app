@@ -4,8 +4,10 @@ import Desciption from "../components/desciption";
 import TabSwitcher from "../components/tabswitcher";
 import SearchBar from "../components/search-bar";
 import React, {useState} from "react";
+import Data from "../api/data";
 export default function Home() {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState('HaNoi');
+    const [coord, setCoord] = useState(null);
 
     // @ts-ignore
     const handleInputChange = (e) => {
@@ -14,7 +16,6 @@ export default function Home() {
         setInputValue(newValue);
     };
 
-
     return (
     <main className="flex flex-row gap-8">
         <div>
@@ -22,11 +23,10 @@ export default function Home() {
                 inputValue={inputValue}
                 handleInputChange={handleInputChange}
             />
-            <p>{inputValue}</p>
-            <Desciption />
+            <Data inputValue={inputValue} />
         </div>
         <div className={""}>
-            <TabSwitcher />
+            <TabSwitcher inputValue={inputValue}/>
         </div>
     </main>
   )
