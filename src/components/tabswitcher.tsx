@@ -1,28 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Data from "../api/data";
 import axios from "axios";
-
-function fetchDataBasedOnInput(inputValue, callback) {
-    const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
-    const apilink = 'https://api.openweathermap.org/data/2.5/weather';
-
-    if (inputValue) {
-        axios
-            .get(apilink, {
-                params: {
-                    q: inputValue,
-                    appid: appid,
-                },
-            })
-            .then((response) => {
-                const apiCoord = response.data.coord;
-                callback(apiCoord);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-}
+import { fetchDataBasedOnInput } from '../api/api';
 
 function fetchWeatherDataBasedOnCoord(coord, callback) {
     const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
@@ -57,9 +36,7 @@ function TabSwitcher({inputValue}) {
     };
 
     useEffect(() => {
-        fetchDataBasedOnInput(inputValue, (apiCoord) => {
-            setCoord(apiCoord);
-        });
+        fetchDataBasedOnInput(inputValue, setCoord, setWeatherData);
     }, [inputValue]);
 
     useEffect(() => {
