@@ -7,7 +7,8 @@ import { CiTempHigh, CiLocationOn } from 'react-icons/ci'
 
 import axios from 'axios';
 
-function fetchWeatherDataBasedOnCoord(coord, callback) {
+function fetchWeatherDataBasedOnCoord(coord: { lat: number; lon: number },
+                                      callback: (weatherData: any) => void) {
     const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
     const apilink = 'https://api.openweathermap.org/data/2.5/weather';
 
