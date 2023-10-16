@@ -7,7 +7,15 @@ import { CiTempHigh, CiLocationOn } from 'react-icons/ci'
 
 import axios from 'axios';
 
-function fetchWeatherDataBasedOnCoord(coord, callback) {
+interface Coordinates {
+    lat: number;
+    lon: number;
+}
+
+function fetchWeatherDataBasedOnCoord(
+    coord: Coordinates,
+    callback: (weatherData: any) => void
+) {
     const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
     const apilink = 'https://api.openweathermap.org/data/2.5/weather';
 
@@ -29,10 +37,10 @@ function fetchWeatherDataBasedOnCoord(coord, callback) {
     }
 }
 
-function Data({ inputValue }) {
+function Data({ inputValue }: { inputValue: string }) {
     const [coord, setCoord] = useState(null);
-    const [weatherData, setWeatherData] = useState(null);
-    const [weatherDataAll, setWeatherDataAll] = useState(null);
+    const [weatherData, setWeatherData] = useState<any>(null);
+    const [weatherDataAll, setWeatherDataAll] = useState<any>(null);
     const [currentTime, setCurrentTime] = useState(new Date());
     const currentDate = new Date();
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -42,16 +50,18 @@ function Data({ inputValue }) {
     }, [inputValue]);
 
     useEffect(() => {
-        fetchWeatherDataBasedOnCoord(coord, (data) => {
-            setWeatherDataAll(data);
-        });
+        if (coord !== null) {
+            fetchWeatherDataBasedOnCoord(coord, (data) => {
+                setWeatherDataAll(data);
+            });
+        }
     }, [coord]);
 
     console.log(weatherData)
     console.log(weatherDataAll)
     return (
         <div className={"flex flex-col gap-6"}>
-            {weatherData && (
+            {weatherData && weatherDataAll && (
                 <>
                     <div className={"flex flex-row flex-wrap gap-6 items-center"}>
                         <CiLocationOn className={"w-10 h-10"}/>
@@ -74,8 +84,8 @@ function Data({ inputValue }) {
                             <MdOutlineDescription className={"w-10 h-10"} />
                         </div>
                         <div className={""}>
-                            {weatherDataAll.weather.map((item) => (
-                                <div key={item}>{item.description}</div>
+                            {weatherDataAll.weather.map((item: { description: string }, index: number) => (
+                                <div key={index}>{item.description}</div>
                             ))}
                         </div>
                     </div>

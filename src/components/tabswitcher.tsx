@@ -7,8 +7,15 @@ import { WiHumidity } from 'react-icons/wi'
 import { MdVisibility } from 'react-icons/md'
 import { AiOutlineCloud } from 'react-icons/ai'
 
+interface Coordinates {
+    lat: number;
+    lon: number;
+}
 
-function fetchWeatherDataBasedOnCoord(coord, callback) {
+function fetchWeatherDataBasedOnCoord(
+    coord: Coordinates,
+    callback: (weatherData: any) => void
+) {
     const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
     const apilink = 'https://api.openweathermap.org/data/2.5/onecall';
 
@@ -30,10 +37,10 @@ function fetchWeatherDataBasedOnCoord(coord, callback) {
     }
 }
 
-function TabSwitcher({inputValue}) {
+function TabSwitcher({ inputValue }: { inputValue: string }) {
     const [coord, setCoord] = useState(null);
-    const [weatherData, setWeatherData] = useState(null);
-    const [weatherDataAll, setWeatherDataAll] = useState(null);
+    const [weatherData, setWeatherData] = useState<any>(null);
+    const [weatherDataAll, setWeatherDataAll] = useState<any>(null);
     const [sunriseTime, setSunriseTime] = useState(new Date());
     const [sunsetTime, setSunsetTime] = useState(new Date());
     const [activeTab, setActiveTab] = useState(1);
@@ -47,9 +54,11 @@ function TabSwitcher({inputValue}) {
     }, [inputValue]);
 
     useEffect(() => {
-        fetchWeatherDataBasedOnCoord(coord, (data) => {
-            setWeatherDataAll(data);
-        });
+        if (coord !== null) {
+            fetchWeatherDataBasedOnCoord(coord, (data) => {
+                setWeatherDataAll(data);
+            });
+        }
     }, [coord]);
 
     console.log(weatherData)

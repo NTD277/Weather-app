@@ -8,7 +8,7 @@ export default function Home() {
     const [inputValue, setInputValue] = useState('HaNoi');
     const [coord, setCoord] = useState(null);
 
-    const handleInputChange = (e) => {
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const newValue = e.target.value;
         setInputValue(newValue);
     };

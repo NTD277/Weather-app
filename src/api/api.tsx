@@ -4,7 +4,11 @@ import axios from 'axios';
 const API_KEY = 'e9f36369ca199e9e2be76ee66494e9a6';
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
-function fetchDataBasedOnInput(inputValue, coordCallback, weatherDataCallback) {
+function fetchDataBasedOnInput(
+    inputValue: string,
+    coordCallback: (coordinates: any) => void,
+    weatherDataCallback: (weatherData: any) => void
+) {
     if (!inputValue) return;
 
     axios
