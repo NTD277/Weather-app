@@ -105,19 +105,19 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                         {
                             weatherData && (
                                 <div className={"grid grid-cols-3 gap-6 text-center"}>
-                                    <div className={"flex justify-center items-center gap-6 p-6 bg-amber-100"}>
+                                    <div className={"flex justify-center items-center gap-6 p-6 bg-cyan-100 rounded-xl"}>
                                         <TbUvIndex className={"w-10 h-10"} />
                                         <div className={"font-bold text-2xl"}>
                                             {weatherData.current.uvi}
                                         </div>
                                     </div>
-                                    <div className={"flex justify-center items-center gap-6 p-6 bg-amber-100"}>
+                                    <div className={"flex justify-center items-center gap-6 p-6 bg-cyan-100 rounded-xl"}>
                                         <TbWind className={"w-10 h-10"} />
                                         <div className={"font-bold text-2xl"}>
                                             {(parseFloat(weatherData.current.wind_speed) * 3.6).toFixed(2)} km/h
                                         </div>
                                     </div>
-                                    <div className={"flex flex-col justify-center items-center gap-6 p-6 bg-amber-100"}>
+                                    <div className={"flex flex-col justify-center items-center gap-6 p-6 bg-cyan-100 rounded-xl"}>
                                         <div className={"flex flex-row gap-6 justify-center items-center"}>
                                             <TbSunrise className={"w-10 h-10"} />
                                             <div className={"font-bold text-2xl"}>
@@ -131,19 +131,19 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={"flex justify-center items-center gap-6 p-6 bg-amber-100"}>
+                                    <div className={"flex justify-center items-center gap-6 p-6 bg-cyan-100 rounded-xl"}>
                                         <WiHumidity className={"w-10 h-10"} />
                                         <div className={"font-bold text-2xl"}>
                                             {weatherData.current.humidity} %
                                         </div>
                                     </div>
-                                    <div className={"flex justify-center items-center gap-6 p-6 bg-amber-100"}>
+                                    <div className={"flex justify-center items-center gap-6 p-6 bg-cyan-100 rounded-xl"}>
                                         <MdVisibility className={"w-10 h-10"} />
                                         <div className={"font-bold text-2xl"}>
                                             {weatherData.current.visibility / 1000} km
                                         </div>
                                     </div>
-                                    <div className={"flex justify-center items-center gap-6 p-6 bg-amber-100"}>
+                                    <div className={"flex justify-center items-center gap-6 p-6 bg-cyan-100 rounded-xl"}>
                                         <AiOutlineCloud className={"w-10 h-10"} />
                                         <div className={"font-bold text-2xl"}>
                                             {weatherData.current.clouds } %
@@ -158,7 +158,7 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                     <div className={"grid grid-cols-3 gap-6"}>
                         {(weatherDataAll &&
                             weatherDataAll.daily.map((item: WeatherItem, index: number) => (
-                                <div key={index} className={"flex flex-col bg-amber-100 p-4"}>
+                                <div key={index} className={"flex flex-col bg-cyan-100 p-4 rounded-xl"}>
                                     <div className={"flex flex-row flex-wrap gap-6 items-center"}>
                                         <LiaCalendarDaySolid className={"w-10 h-10"}/>
                                         { new Date(item.dt * 1000).getDate() + " / " + new Date(item.dt * 1000).getMonth() + " / " + new Date(item.dt * 1000).getFullYear() }
