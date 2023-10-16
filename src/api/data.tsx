@@ -12,6 +12,12 @@ interface Coordinates {
     lon: number;
 }
 
+
+interface WeatherItem {
+    description: string;
+    dt: number;
+}
+
 function fetchWeatherDataBasedOnCoord(
     coord: Coordinates,
     callback: (weatherData: any) => void
@@ -91,7 +97,7 @@ function Data({ inputValue }: { inputValue: string }) {
                             <MdOutlineDescription className={"w-10 h-10"} />
                         </div>
                         <div className={""}>
-                            {weatherDataAll.weather.map((item: { description: string }, index: number) => (
+                            {weatherDataAll.weather.map((item: WeatherItem, index: number) => (
                                 <div key={index}>{item.description}</div>
                             ))}
                         </div>

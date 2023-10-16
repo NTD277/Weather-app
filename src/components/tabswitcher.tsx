@@ -16,6 +16,16 @@ interface Coordinates {
     lon: number;
 }
 
+interface WeatherItem {
+    weather: any;
+    description: string;
+    dt: number;
+    temp: {
+        min: number;
+        max: number;
+    };
+}
+
 function fetchWeatherDataBasedOnCoord(
     coord: Coordinates,
     callback: (weatherData: any) => void
@@ -147,7 +157,7 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                 {activeTab === 2 &&
                     <div className={"grid grid-cols-3 gap-6"}>
                         {(weatherDataAll &&
-                            weatherDataAll.daily.map((item: { description: string }, index: number) => (
+                            weatherDataAll.daily.map((item: WeatherItem, index: number) => (
                                 <div key={index} className={"flex flex-col bg-amber-100 p-4"}>
                                     <div className={"flex flex-row flex-wrap gap-6 items-center"}>
                                         <LiaCalendarDaySolid className={"w-10 h-10"}/>
@@ -156,7 +166,7 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                                     <div className={"flex flex-row flex-wrap gap-6 items-center"}>
                                         <CiTempHigh className={"w-10 h-10"}/>
                                         <div>
-                                            { parseInt(item.temp.min) - 273 } ℃ - { parseInt(item.temp.max) - 273 } ℃
+                                            {`${parseInt(String(item.temp.min)) - 273} ℃ - ${parseInt(String(item.temp.max)) - 273} ℃`}
                                         </div>
                                     </div>
                                     <div className={"flex flex-row gap-6 items-center"}>
