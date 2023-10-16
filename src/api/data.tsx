@@ -30,7 +30,7 @@ function fetchWeatherDataBasedOnCoord(coord: { lat: number; lon: number },
     }
 }
 
-function Data({ inputValue }) {
+function Data({ inputValue = "Hanoi" }) {
     const [coord, setCoord] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
     const [weatherDataAll, setWeatherDataAll] = useState(null);
