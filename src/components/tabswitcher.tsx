@@ -127,7 +127,14 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                                         <div className={"flex flex-row gap-6 justify-center items-center"}>
                                             <TbSunset className={"w-10 h-10"} />
                                             <div className={"font-bold text-2xl"}>
-                                                {new Date(weatherData.current.sunset * 1000).getHours() + ":" + (new Date(weatherData.current.sunset * 1000).getMinutes() > 12 ? (new Date(weatherData.current.sunset * 1000).getMinutes() + " am") : (new Date(weatherData.current.sunset * 1000).getUTCMinutes() - 12 + " pm" ) ) }
+                                                {
+                                                    (
+                                                        new Date(weatherData.current.sunset * 1000).getHours() < 12
+                                                            ? (new Date(weatherData.current.sunset * 1000).getHours() + ":" + new Date(weatherData.current.sunset * 1000).getMinutes() + " am")
+                                                            : (new Date(weatherData.current.sunset * 1000).getHours() - 12 + ":" + new Date(weatherData.current.sunset * 1000).getMinutes() +  " pm" )
+                                                    )
+
+                                                }
                                             </div>
                                         </div>
                                     </div>
