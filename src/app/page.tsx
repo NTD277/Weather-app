@@ -10,7 +10,6 @@ export default function Home() {
 
     const handleInputChange = (e) => {
         const newValue = e.target.value;
-
         setInputValue(newValue);
     };
 

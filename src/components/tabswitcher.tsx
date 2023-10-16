@@ -8,8 +8,7 @@ import { MdVisibility } from 'react-icons/md'
 import { AiOutlineCloud } from 'react-icons/ai'
 
 
-function fetchWeatherDataBasedOnCoord(coord: { lat: number; lon: number },
-                                      callback: (weatherData: any) => void) {
+function fetchWeatherDataBasedOnCoord(coord, callback) {
     const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
     const apilink = 'https://api.openweathermap.org/data/2.5/onecall';
 
