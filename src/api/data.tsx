@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { fetchDataBasedOnInput } from './api';
+import { AiOutlineCloud , AiOutlineFieldTime } from 'react-icons/ai';
+import { MdOutlineDescription } from 'react-icons/md';
+import { LiaCalendarDaySolid } from 'react-icons/lia'
+import { CiTempHigh, CiLocationOn } from 'react-icons/ci'
+
 import axios from 'axios';
 
 function fetchWeatherDataBasedOnCoord(coord, callback) {
@@ -27,40 +32,58 @@ function fetchWeatherDataBasedOnCoord(coord, callback) {
 function Data({ inputValue }) {
     const [coord, setCoord] = useState(null);
     const [weatherData, setWeatherData] = useState(null);
+    const [weatherDataAll, setWeatherDataAll] = useState(null);
     const [currentTime, setCurrentTime] = useState(new Date());
     const currentDate = new Date();
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     useEffect(() => {
         fetchDataBasedOnInput(inputValue, setCoord, setWeatherData);
-        console.log(weatherData)
     }, [inputValue]);
 
     useEffect(() => {
         fetchWeatherDataBasedOnCoord(coord, (data) => {
-            setWeatherData(data);
-            console.log(weatherData)
+            setWeatherDataAll(data);
         });
     }, [coord]);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-
-
+    console.log(weatherData)
+    console.log(weatherDataAll)
     return (
-        <div>
+        <div className={"flex flex-col gap-6"}>
             {weatherData && (
-                <div>
-                    <div>{weatherData.name}</div>
-                    <div>{days[currentDate.getDay()]}</div>
-                    <div>{currentTime.toLocaleTimeString()}</div>
-                </div>
+                <>
+                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                        <CiLocationOn className={"w-10 h-10"}/>
+                        {weatherDataAll.name}
+                    </div>
+                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                        <CiTempHigh className={"w-10 h-10"}/>
+                        {parseInt(weatherDataAll.main.temp) - 273} ℃
+                    </div>
+                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                        <LiaCalendarDaySolid className={"w-10 h-10"}/>
+                        {days[currentDate.getDay()]}
+                    </div>
+                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                        <AiOutlineFieldTime className={"w-10 h-10"}/>
+                        {currentTime.toLocaleTimeString()}
+                    </div>
+                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                        <div>
+                            <MdOutlineDescription className={"w-10 h-10"} />
+                        </div>
+                        <div className={""}>
+                            {weatherDataAll.weather.map((item) => (
+                                <div key={item}>{item.description}</div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className={"flex flex-row gap-6 items-center"}>
+                        <AiOutlineCloud className={"w-10 h-10"}/>
+                        {weatherDataAll.clouds.all} %
+                    </div>
+                </>
             )}
         </div>
     );

@@ -1,9 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -25,12 +22,6 @@ body {
 
 * {
   box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
 }
 
 h1 {
@@ -80,8 +71,9 @@ h3, p { margin: 5px 0px; }
 
 body {
   font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
+  margin: auto;
+  padding: 20px;
+  max-width: 1440px;
 }
 
 h1 {
