@@ -6,6 +6,10 @@ import { TbUvIndex, TbWind, TbSunrise, TbSunset } from 'react-icons/tb'
 import { WiHumidity } from 'react-icons/wi'
 import { MdVisibility } from 'react-icons/md'
 import { AiOutlineCloud } from 'react-icons/ai'
+import {LiaCalendarDaySolid} from "react-icons/lia";
+import {CiTempHigh} from "react-icons/ci";
+import { MdOutlineDescription } from 'react-icons/md';
+
 
 interface Coordinates {
     lat: number;
@@ -140,8 +144,39 @@ function TabSwitcher({ inputValue }: { inputValue: string }) {
                         }
                     </>
                 }
-                {activeTab === 2 && <p>Content for Tab 2</p>}
-                {activeTab === 3 && <p>Content for Tab 3</p>}
+                {activeTab === 2 &&
+                    <div className={"grid grid-cols-3 gap-6"}>
+                        {(weatherDataAll &&
+                            weatherDataAll.daily.map((item: { description: string }, index: number) => (
+                                <div key={index} className={"flex flex-col bg-amber-100 p-4"}>
+                                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                                        <LiaCalendarDaySolid className={"w-10 h-10"}/>
+                                        { new Date(item.dt * 1000).getDate() + " / " + new Date(item.dt * 1000).getMonth() + " / " + new Date(item.dt * 1000).getFullYear() }
+                                    </div>
+                                    <div className={"flex flex-row flex-wrap gap-6 items-center"}>
+                                        <CiTempHigh className={"w-10 h-10"}/>
+                                        <div>
+                                            { parseInt(item.temp.min) - 273 } ℃ - { parseInt(item.temp.max) - 273 } ℃
+                                        </div>
+                                    </div>
+                                    <div className={"flex flex-row gap-6 items-center"}>
+                                        <MdOutlineDescription className={"w-10 h-10"} />
+                                        <div>
+                                            {
+                                                item.weather.map((items: { description: string }, indexes: number) => (
+                                                    <div key={indexes}>
+                                                        {items.description}
+                                                    </div>
+                                                ))
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                }
+                {activeTab === 3 && <p>siuuuu</p>}
             </div>
         </>
     );

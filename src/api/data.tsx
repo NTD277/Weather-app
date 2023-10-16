@@ -57,8 +57,15 @@ function Data({ inputValue }: { inputValue: string }) {
         }
     }, [coord]);
 
-    console.log(weatherData)
-    console.log(weatherDataAll)
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(interval);
+    }, []);
+
+    console.log(new Date(1697515200*1000))
     return (
         <div className={"flex flex-col gap-6"}>
             {weatherData && weatherDataAll && (
