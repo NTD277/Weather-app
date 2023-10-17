@@ -12,7 +12,6 @@ interface Coordinates {
     lon: number;
 }
 
-
 interface WeatherItem {
     description: string;
     dt: number;
@@ -48,6 +47,7 @@ function Data({ inputValue }: { inputValue: string }) {
     const [weatherData, setWeatherData] = useState<any>(null);
     const [weatherDataAll, setWeatherDataAll] = useState<any>(null);
     const [currentTime, setCurrentTime] = useState(new Date());
+    const [background, setBackground] = useState('');
     const currentDate = new Date();
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -71,7 +71,6 @@ function Data({ inputValue }: { inputValue: string }) {
         return () => clearInterval(interval);
     }, []);
 
-    console.log(new Date(1697515200*1000))
     return (
         <div className={"flex flex-col gap-6"}>
             {weatherData && weatherDataAll && (
@@ -97,9 +96,11 @@ function Data({ inputValue }: { inputValue: string }) {
                             <MdOutlineDescription className={"w-10 h-10"} />
                         </div>
                         <div className={""}>
-                            {weatherDataAll.weather.map((item: WeatherItem, index: number) => (
-                                <div key={index}>{item.description}</div>
-                            ))}
+                            {
+                                weatherDataAll.weather.map((item: WeatherItem, index: number) => (
+                                    <div key={index}>{item.description}</div>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className={"flex flex-row gap-6 items-center"}>

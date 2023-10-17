@@ -1,4 +1,4 @@
-// api.js
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const API_KEY = 'e9f36369ca199e9e2be76ee66494e9a6';
@@ -40,6 +40,11 @@ function fetchDataBasedOnInput(
         .catch((error) => {
             console.error(error);
         });
+}
+
+export function weatherData() {
+    const test = '11';
+    return "1231231231231";
 }
 
 export { fetchDataBasedOnInput };
