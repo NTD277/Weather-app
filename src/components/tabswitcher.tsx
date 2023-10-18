@@ -5,7 +5,6 @@ import {Hour} from "./time/hour";
 import Day from "./time/day";
 import Week from "./time/week";
 
-
 interface Coordinates {
     lat: number;
     lon: number;

@@ -39,11 +39,9 @@ function fetchDataBasedOnInput(
                     weatherDataCallback(response.data);
                 })
                 .catch((error) => {
-                    console.error(error);
                 });
         })
         .catch((error) => {
-            console.error(error);
         });
 }
 
@@ -68,7 +66,6 @@ function fetchWeatherDataBasedOnCoord(
                 callback(response.data);
             })
             .catch((error) => {
-                console.error(error);
             });
     }
 }
