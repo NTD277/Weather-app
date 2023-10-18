@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchDataBasedOnInput } from './api';
+import {fetchDataBasedOnInput, fetchWeatherDataBasedOnCoord} from './api';
 import { AiOutlineCloud , AiOutlineFieldTime } from 'react-icons/ai';
 import { MdOutlineDescription } from 'react-icons/md';
 import { LiaCalendarDaySolid } from 'react-icons/lia'
@@ -17,47 +17,18 @@ interface WeatherItem {
     dt: number;
 }
 
-function fetchWeatherDataBasedOnCoord(
-    coord: Coordinates,
-    callback: (weatherData: any) => void
+function Data(
+    { coord, weatherData }:{ coord: Coordinates | null, weatherData: any }
 ) {
-    const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
-    const apilink = 'https://api.openweathermap.org/data/2.5/weather';
-
-    if (coord) {
-        axios
-            .get(apilink, {
-                params: {
-                    lat: coord.lat,
-                    lon: coord.lon,
-                    appid: appid,
-                },
-            })
-            .then((response) => {
-                callback(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-}
-
-function Data({ inputValue }: { inputValue: string }) {
-    const [coord, setCoord] = useState(null);
-    const [weatherData, setWeatherData] = useState<any>(null);
     const [weatherDataAll, setWeatherDataAll] = useState<any>(null);
     const [currentTime, setCurrentTime] = useState(new Date());
-    const [background, setBackground] = useState('');
-    const currentDate = new Date();
+    let currentDate = new Date();
+    const weatherText = 'weather'
     var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
     useEffect(() => {
-        fetchDataBasedOnInput(inputValue, setCoord, setWeatherData);
-    }, [inputValue]);
-
-    useEffect(() => {
         if (coord !== null) {
-            fetchWeatherDataBasedOnCoord(coord, (data) => {
+            fetchWeatherDataBasedOnCoord(coord, weatherText, (data) => {
                 setWeatherDataAll(data);
             });
         }

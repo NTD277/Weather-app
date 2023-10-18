@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Data from "../api/data";
 import axios from "axios";
-import { fetchDataBasedOnInput } from '../api/api';
-import { TbUvIndex, TbWind, TbSunrise, TbSunset } from 'react-icons/tb'
-import { WiHumidity } from 'react-icons/wi'
-import { MdVisibility } from 'react-icons/md'
-import { AiOutlineCloud } from 'react-icons/ai'
-import {LiaCalendarDaySolid} from "react-icons/lia";
-import {CiTempHigh} from "react-icons/ci";
-import { MdOutlineDescription } from 'react-icons/md';
+import {fetchDataBasedOnInput, fetchWeatherDataBasedOnCoord} from '../api/api';
 import {Hour} from "./time/hour";
 import Day from "./time/day";
 import Week from "./time/week";
@@ -29,56 +21,28 @@ interface WeatherItem {
     };
 }
 
-function fetchWeatherDataBasedOnCoord(
-    coord: Coordinates,
-    callback: (weatherData: any) => void
+
+
+function TabSwitcher(
+    { coord, weatherData }:
+    { coord: Coordinates | null, weatherData: any }
 ) {
-    const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
-    const apilink = 'https://api.openweathermap.org/data/2.5/onecall';
-
-    if (coord) {
-        axios
-            .get(apilink, {
-                params: {
-                    lat: coord.lat,
-                    lon: coord.lon,
-                    appid: appid,
-                },
-            })
-            .then((response) => {
-                callback(response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-}
-
-function TabSwitcher({ inputValue }: { inputValue: string }) {
-    const [coord, setCoord] = useState(null);
-    const [weatherData, setWeatherData] = useState<any>(null);
     const [weatherDataAll, setWeatherDataAll] = useState<any>(null);
-    const [sunriseTime, setSunriseTime] = useState(new Date());
-    const [sunsetTime, setSunsetTime] = useState(new Date());
     const [activeTab, setActiveTab] = useState(1);
+    const oneallText = 'onecall';
 
     const handleTabClick = ({tabNumber}: { tabNumber: any }) => {
         setActiveTab(tabNumber);
     };
 
     useEffect(() => {
-        fetchDataBasedOnInput(inputValue, setCoord, setWeatherData);
-    }, [inputValue]);
-
-    useEffect(() => {
         if (coord !== null) {
-            fetchWeatherDataBasedOnCoord(coord, (data) => {
+            fetchWeatherDataBasedOnCoord(coord,oneallText, (data) => {
                 setWeatherDataAll(data);
             });
         }
     }, [coord]);
 
-    console.log(weatherData)
 
     return (
         <>

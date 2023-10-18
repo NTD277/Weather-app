@@ -4,6 +4,11 @@ import axios from 'axios';
 const API_KEY = 'e9f36369ca199e9e2be76ee66494e9a6';
 const API_BASE_URL = 'https://api.openweathermap.org/data/2.5';
 
+interface Coordinates {
+    lat: number;
+    lon: number;
+}
+
 function fetchDataBasedOnInput(
     inputValue: string,
     coordCallback: (coordinates: any) => void,
@@ -42,9 +47,30 @@ function fetchDataBasedOnInput(
         });
 }
 
-export function weatherData() {
-    const test = '11';
-    return "1231231231231";
+function fetchWeatherDataBasedOnCoord(
+    coord: Coordinates,
+    type: string,
+    callback: (weatherData: any) => void
+) {
+    const appid = 'e9f36369ca199e9e2be76ee66494e9a6';
+    const apilink = `https://api.openweathermap.org/data/2.5/${type}`;
+
+    if (coord) {
+        axios
+            .get(apilink, {
+                params: {
+                    lat: coord.lat,
+                    lon: coord.lon,
+                    appid: appid,
+                },
+            })
+            .then((response) => {
+                callback(response.data);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 }
 
-export { fetchDataBasedOnInput };
+export { fetchDataBasedOnInput, fetchWeatherDataBasedOnCoord };
