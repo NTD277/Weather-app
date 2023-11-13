@@ -22,7 +22,7 @@ const Week = (
             <div key={index} className={"flex flex-col bg-cyan-100 p-4 rounded-xl"}>
                 <div className={"flex flex-row flex-wrap gap-6 items-center"}>
                     <LiaCalendarDaySolid className={"w-10 h-10"}/>
-                    { new Date(item.dt * 1000).getDate() + " / " + new Date(item.dt * 1000).getMonth() + " / " + new Date(item.dt * 1000).getFullYear() }
+                    { new Date(item.dt * 1000).getDate() + " / " + (new Date(item.dt * 1000).getMonth() + 1) + " / " + new Date(item.dt * 1000).getFullYear() }
                 </div>
                 <div className={"flex flex-row flex-wrap gap-6 items-center"}>
                     <CiTempHigh className={"w-10 h-10"}/>
